@@ -17,6 +17,7 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final JwtService jwtService;
 
+
     public List<NoteRequest> getNotes(String username) {
         Profile profile = profileRepository.findByUserUsername(username)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
