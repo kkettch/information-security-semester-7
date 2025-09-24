@@ -1,5 +1,6 @@
 package com.kkettch.secure_api.controller;
 
+import com.kkettch.secure_api.dto.LoginRequest;
 import com.kkettch.secure_api.dto.RegisterRequest;
 import com.kkettch.secure_api.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class AuthenticationController {
                 registerRequest.getEmail()
         );
         return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(authenticationService.login(loginRequest.getUsername(), loginRequest.getPassword()));
     }
 
 }

@@ -1,3 +1,4 @@
+### Регистрация пользователя
 POST http://localhost:8080/auth/register
 Content-Type: application/json
 
@@ -7,3 +8,33 @@ Content-Type: application/json
   "nickname": "Tester",
   "email": "test@example.com"
 }
+
+### Логин пользователя
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+"username": "testuser",
+"password": "123456"
+}
+
+### Регистрация существующего пользователя
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "12345",
+  "nickname": "Tester",
+  "email": "test@example.com"
+}
+
+### Логин несуществующего пользователя
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "userthatdoesnotexist",
+  "password": "123456"
+}
+

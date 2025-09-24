@@ -15,6 +15,7 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public void register(String username, String password, String nickname, String email) {
 
@@ -27,5 +28,14 @@ public class AuthenticationService {
 
         Profile profile = Profile.builder().nickname(nickname).email(email).user(user).build();
         profileRepository.save(profile);
+    }
+
+    public String login(String username, String password) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Username doesn't exist"));
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+        return jwtService.generateToken(user.getUsername());
     }
 }
