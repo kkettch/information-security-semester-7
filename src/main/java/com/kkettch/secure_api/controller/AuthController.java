@@ -2,28 +2,26 @@ package com.kkettch.secure_api.controller;
 
 import com.kkettch.secure_api.dto.LoginRequest;
 import com.kkettch.secure_api.dto.RegisterRequest;
-import com.kkettch.secure_api.service.AuthenticationService;
+import com.kkettch.secure_api.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Locale;
-
 @RestController
 @RequestMapping("/auth")
-public class AuthenticationController {
+public class AuthController {
 
-    private AuthenticationService authenticationService;
+    private AuthService authService;
 
-    public AuthenticationController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        authenticationService.register(
+        authService.register(
                 registerRequest.getUsername(),
                 registerRequest.getPassword(),
                 registerRequest.getNickname(),
@@ -34,7 +32,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(authenticationService.login(loginRequest.getUsername(), loginRequest.getPassword()));
+        return ResponseEntity.ok(authService.login(loginRequest.getUsername(), loginRequest.getPassword()));
     }
 
 }

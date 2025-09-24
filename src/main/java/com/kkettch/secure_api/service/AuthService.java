@@ -5,13 +5,12 @@ import com.kkettch.secure_api.entity.User;
 import com.kkettch.secure_api.repository.ProfileRepository;
 import com.kkettch.secure_api.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AuthenticationService {
+public class AuthService {
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;
