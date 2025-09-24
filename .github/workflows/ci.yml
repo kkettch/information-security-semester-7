@@ -40,7 +40,7 @@ jobs:
 
       # --- Snyk вместо OWASP Dependency-Check ---
       - name: Set up Snyk
-        uses: snyk/actions/setup@v2
+        uses: snyk/actions/setup@master
         with:
           version: '1.1045.0' # можно указать нужную версию CLI
 
