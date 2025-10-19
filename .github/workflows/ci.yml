@@ -20,31 +20,34 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
+      - name: Build with Maven (lab1 only)
+        working-directory: ./lab1
         run: mvn clean package -DskipTests
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/lab1/target/*.jar'
 
-      - name: Run SpotBugs (SAST)
+      - name: Run SpotBugs (SAST) for lab1
+        working-directory: ./lab1
         run: mvn spotbugs:spotbugs
 
       - name: Upload SpotBugs report
         uses: actions/upload-artifact@v4
         with:
           name: spotbugs-report
-          path: target/spotbugs.html
+          path: lab1/target/spotbugs.html
 
       # --- Snyk вместо OWASP Dependency-Check ---
       - name: Set up Snyk
         uses: snyk/actions/setup@master
         with:
-          version: '1.1045.0' # можно указать нужную версию CLI
+          version: '1.1045.0'
 
-      - name: Run Snyk test (SCA)
+      - name: Run Snyk test (SCA) for lab1
+        working-directory: ./lab1
         run: snyk test --all-projects --show-vulnerable-paths=all
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -53,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snyk-report
-          path: snyk-report.html
+          path: lab1/snyk-report.html
